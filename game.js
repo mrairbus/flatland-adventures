@@ -1,22 +1,84 @@
 var canvas = document.getElementById("canvas");
 var pintor = canvas.getContext("2d");
 
+var pausado = false;
+
 var x = 200;
 var y = 240;
 
-var lobos = [
-	70, 70,
-	100, 127
-];
+var lobos = [];
 
-var ovejas = [
-	25, 30,
-	50, 50,
-	80, 80,
-	233, 245
-];
+var ovejas = [];
 
-var pausado = false;
+var jugador;
+
+function Oveja() {
+	this.x = Math.floor(Math.random()*800);
+	this.y = Math.floor(Math.random()*600);
+}
+
+Oveja.prototype.pintar = function oveja_pintar() {
+	pintor.fillStyle = "white";
+	pintor.fillRect(this.x, this.y, 15, 15);
+};
+
+Oveja.prototype.actualizar = function oveja_actualizar(dt) {
+};
+
+function Lobo() {
+	this.x = Math.floor(Math.random()*800);
+	this.y = Math.floor(Math.random()*600);
+}
+
+Lobo.prototype.pintar = function lobo_pintar() {
+	pintor.fillStyle = "grey";
+	pintor.fillRect(this.x, this.y, 12, 12);
+};
+
+Lobo.prototype.actualizar = function lobo_actualizar(dt) {
+};
+
+function Jugador() {
+	this.x = Math.floor(Math.random()*800);
+	this.y = Math.floor(Math.random()*600);
+}
+
+Jugador.prototype.pintar = function jugador_pintar() {
+	pintor.fillStyle = "#f80";
+	pintor.fillRect(this.x, this.y, 25, 25);
+};
+
+Jugador.prototype.entrada = function jugador_entrada(keyCode) {
+	if(keyCode == 87) {
+		this.y = this.y - 25;
+	}
+	if(keyCode == 65) {
+		this.x = this.x - 25;
+	}
+	if(keyCode == 68) {
+		this.x = this.x + 25;
+	}
+	if(keyCode == 83) {
+		this.y = this.y + 25;
+	}
+};
+
+function inicializar() {
+	var i;
+
+	//Crear ovejas
+	for(i = 0; i < 8; ++i) {
+		ovejas[i] = new Oveja();
+	}
+
+	//Crear lobos
+	for(i = 0; i < 2; ++i) {
+		lobos[i] = new Lobo();
+	}
+
+	//Crear jugador
+	jugador = new Jugador();
+}
 
 function jugar() {
 	if(pausado) {
@@ -32,75 +94,46 @@ function jugar() {
 }
 
 function actualizar() {
-	//Para hacer: que no sea un trabalenguas :)
-	for(lobo=0; lobo<(lobos.length/2); lobo++){
-		lobos[2*lobo] = lobos[2*lobo] - 15+Math.floor(Math.random()*30);
-		lobos[2*lobo+1] = lobos[2*lobo+1] - 15+Math.floor(Math.random()*30);
+	var dt = 1000/25;
 
-		if(lobos[2*lobo]<0){
-			lobos[2*lobo]=lobos[2*lobo]+50;
-		}
+	ovejas.forEach(function (oveja) {
+		oveja.actualizar(dt);
+	});
 
-		if(lobos[2*lobo+1]<0){
-			lobos[2*lobo+1]=lobos[2*lobo+1]+50;
-		}
-	}
+	lobos.forEach(function (lobo) {
+		lobo.actualizar(dt);
+	});
 }
 
 function pintar() {
-pintor.fillStyle = "pink";
-pintor.fillRect(0, 0, 800, 600);
+	pintor.fillStyle = "pink";
+	pintor.fillRect(0, 0, 800, 600);
 
-pintor.fillStyle = "#fff";
-var oveja;
-for(oveja = 0; oveja < (ovejas.length/2); oveja++) {
+	ovejas.forEach(function (oveja) {
+		oveja.pintar();
+	});
 
-pintor.fillRect(
-ovejas[2*oveja],
-ovejas[(2*oveja)+1],
-15,
-15);
+	lobos.forEach(function (lobo) {
+		lobo.pintar();
+	});
 
+	jugador.pintar();
 }
 
-pintor.fillStyle = "green";
-pintor.fillRect(x, y, 19, 20);
-
-pintor.fillStyle = "green";
-for(lobo=0; lobo<(lobos.length/2); lobo++){
-pintor.fillRect(
-lobos[2*lobo],
-lobos[(2*lobo)+1],13,13);
-}
-
-pintor.fillStyle = "#f50";
-pintor.fillRect(x, y, 25, 25);
-}
-
-window.addEventListener("keydown", function(event) {								
+window.addEventListener("keydown", function(event) {
 	if (pausado) {
 		if (event.keyCode == 80) {
 			pausado = false;
 		}
 	}
 	else {
-		if(event.keyCode == 87) {
-			y = y - 25;
-		}
-		if(event.keyCode == 65) {
-			x = x - 25;
-		}
-		if(event.keyCode == 68) {
-			x = x + 25;
-		}
-		if(event.keyCode == 83) {
-			y = y + 25;
-		}
+		jugador.entrada(event.keyCode);
 		if(event.keyCode == 80) {
 			pausado = true;
 		}
 	}
 });
 
+inicializar();
 
 window.setInterval(jugar, 25);
