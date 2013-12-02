@@ -45,38 +45,29 @@ pintor.fillStyle = "#f50";
 pintor.fillRect(x, y, 25, 25);
 }
 
-window.addEventListener("keydown", function(event) {
-											
-if (pausado) {
-	
-	if (event.keyCode == 80) {
-		pausado = false;
-	}
-	
-}
-else {
-	if(event.keyCode == 87) {
-		y = y - 25;
-	}
-	if(event.keyCode == 65) {
-		x = x - 25;
-	}
-	if(event.keyCode == 68) {
-		x = x + 25;
-	}
-	if(event.keyCode == 83) {
-		y = y + 25;
-	}
-	if(event.keyCode == 80) {
-		if (pausado) {
+window.addEventListener("keydown", function(event) {										
+	if (pausado) {
+		if (event.keyCode == 80) {
 			pausado = false;
 		}
-		else
-		{
+	}
+	else {
+		if(event.keyCode == 87) {
+			y = y - 25;
+		}
+		if(event.keyCode == 65) {
+			x = x - 25;
+		}
+		if(event.keyCode == 68) {
+			x = x + 25;
+		}
+		if(event.keyCode == 83) {
+			y = y + 25;
+		}
+		if(event.keyCode == 80) {
 			pausado = true;
 		}
 	}
-}
 });
 
 
