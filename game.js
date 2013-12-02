@@ -26,7 +26,24 @@ function jugar() {
 		pintor.fillStyle = "pink";
 		pintor.fillText("Pausado", 20, 20);
 	} else {
+		actualizar();
 		pintar();
+	}
+}
+
+function actualizar() {
+	//Para hacer: que no sea un trabalenguas :)
+	for(lobo=0; lobo<(lobos.length/2); lobo++){
+		lobos[2*lobo] = lobos[2*lobo] - 15+Math.floor(Math.random()*30);
+		lobos[2*lobo+1] = lobos[2*lobo+1] - 15+Math.floor(Math.random()*30);
+
+		if(lobos[2*lobo]<0){
+			lobos[2*lobo]=lobos[2*lobo]+50;
+		}
+
+		if(lobos[2*lobo+1]<0){
+			lobos[2*lobo+1]=lobos[2*lobo+1]+50;
+		}
 	}
 }
 
@@ -60,7 +77,7 @@ pintor.fillStyle = "#f50";
 pintor.fillRect(x, y, 25, 25);
 }
 
-window.addEventListener("keydown", function(event) {										
+window.addEventListener("keydown", function(event) {								
 	if (pausado) {
 		if (event.keyCode == 80) {
 			pausado = false;
@@ -81,20 +98,6 @@ window.addEventListener("keydown", function(event) {
 		}
 		if(event.keyCode == 80) {
 			pausado = true;
-		}
-
-		//Para hacer: que no sea un trabalenguas :)
-		for(lobo=0; lobo<(lobos.length/2); lobo++){
-			lobos[2*lobo] = lobos[2*lobo] - 15+Math.floor(Math.random()*30);
-			lobos[2*lobo+1] = lobos[2*lobo+1] - 15+Math.floor(Math.random()*30);
-
-			if(lobos[2*lobo]<0){
-				lobos[2*lobo]=lobos[2*lobo]+50
-			}
-
-			if(lobos[2*lobo+1]<0){
-				lobos[2*lobo+1]=lobos[2*lobo+1]+50
-			}
 		}
 	}
 });
