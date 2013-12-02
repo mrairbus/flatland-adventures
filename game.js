@@ -82,15 +82,20 @@ window.addEventListener("keydown", function(event) {
 		if(event.keyCode == 80) {
 			pausado = true;
 		}
-	for(lobo=0; lobo<(lobos.length/2); lobo++){
-	lobos[2*lobo] = lobos[2*lobo] - 15+Math.floor(Math.random()*30);
-	lobos[2*lobo+1] = lobos[2*lobo+1] - 15+Math.floor(Math.random()*30);
-	if(lobos[2*lobo]<0){
-		lobos[2*lobo]=lobos[2*lobo]+50
-	}
-	if(lobos[2*lobo+1]<0){
-	lobos[2*lobo+1]=lobos[2*lobo+1]+50
-	}
+
+		//Para hacer: que no sea un trabalenguas :)
+		for(lobo=0; lobo<(lobos.length/2); lobo++){
+			lobos[2*lobo] = lobos[2*lobo] - 15+Math.floor(Math.random()*30);
+			lobos[2*lobo+1] = lobos[2*lobo+1] - 15+Math.floor(Math.random()*30);
+
+			if(lobos[2*lobo]<0){
+				lobos[2*lobo]=lobos[2*lobo]+50
+			}
+
+			if(lobos[2*lobo+1]<0){
+				lobos[2*lobo+1]=lobos[2*lobo+1]+50
+			}
+		}
 	}
 });
 
