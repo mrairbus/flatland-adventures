@@ -15,13 +15,13 @@ var corral;
 var jugador;
 
 function Oveja() {
-	this.x = Math.floor(Math.random()*800);
-	this.y = Math.floor(Math.random()*600);
+	this.x = Math.random()*800;
+	this.y = Math.random()*600;
 }
 
 Oveja.prototype.pintar = function oveja_pintar() {
 	pintor.fillStyle = "white";
-	pintor.fillRect(this.x, this.y, 15, 15);
+	pintor.fillRect(this.x - 7.5, this.y - 7.5, 15, 15);
 };
 
 Oveja.prototype.actualizar = function oveja_actualizar(dt) {
@@ -62,13 +62,13 @@ Oveja.prototype.actualizar = function oveja_actualizar(dt) {
 };
 
 function Lobo() {
-	this.x = Math.floor(Math.random()*800);
-	this.y = Math.floor(Math.random()*600);
+	this.x = Math.random()*800;
+	this.y = Math.random()*600;
 }
 
 Lobo.prototype.pintar = function lobo_pintar() {
 	pintor.fillStyle = "grey";
-	pintor.fillRect(this.x, this.y, 12, 12);
+	pintor.fillRect(this.x - 6, this.y - 6, 12, 12);
 };
 
 Lobo.prototype.actualizar = function lobo_actualizar(dt) {
@@ -115,13 +115,13 @@ Lobo.prototype.actualizar = function lobo_actualizar(dt) {
 };
 
 function Jugador() {
-	this.x = Math.floor(Math.random()*800);
-	this.y = Math.floor(Math.random()*600);
+	this.x = Math.random()*800;
+	this.y = Math.random()*600;
 }
 
 Jugador.prototype.pintar = function jugador_pintar() {
 	pintor.fillStyle = "#f80";
-	pintor.fillRect(this.x, this.y, 25, 25);
+	pintor.fillRect(this.x - 12.5, this.y - 12.5, 25, 25);
 };
 
 Jugador.prototype.entrada = function jugador_entrada(keyCode) {
@@ -140,8 +140,8 @@ Jugador.prototype.entrada = function jugador_entrada(keyCode) {
 };
 
 function Corral() {
-	this.x = Math.floor(Math.random()*700);
-	this.y = Math.floor(Math.random()*500);
+	this.x = Math.random()*700;
+	this.y = Math.random()*500;
 	this.orientacion = Math.floor(Math.random()*4);
 }
 
