@@ -10,6 +10,8 @@ var lobos = [];
 
 var ovejas = [];
 
+var corral;
+
 var jugador;
 
 function Oveja() {
@@ -137,6 +139,39 @@ Jugador.prototype.entrada = function jugador_entrada(keyCode) {
 	}
 };
 
+function Corral() {
+	this.x = Math.floor(Math.random()*700);
+	this.y = Math.floor(Math.random()*500);
+	this.orientacion = Math.floor(Math.random()*4);
+}
+
+Corral.prototype.pintar = function corral_pintar() {
+	pintor.fillStyle = "SaddleBrown";
+	pintor.fillRect(this.x, this.y, 100, 100);
+
+	pintor.fillStyle = "LawnGreen";
+	pintor.fillRect(this.x + 2.5, this.y + 2.5, 95, 95);
+
+	switch(this.orientacion) {
+		case 0: //Norte
+			pintor.fillRect(this.x + 25, this.y, 50, 2.5);
+			break;
+		case 1: //Este
+			pintor.fillRect(this.x + 97.5, this.y + 25, 2.5, 50);
+			break;
+		case 2: //Sur
+			pintor.fillRect(this.x + 25, this.y + 97.5, 50, 2.5);
+			break;
+		case 3: //Oeste
+			pintor.fillRect(this.x, this.y + 25, 2.5, 50);
+			break;
+	}
+};
+
+Corral.prototype.esta_dentro = function corral_esta_dentro(animal) {
+	return(this.x < animal.x && animal.x < this.x + 100 && this.y < animal.y && animal.y < this.y + 100);
+};
+
 function inicializar() {
 	var i;
 
@@ -149,6 +184,9 @@ function inicializar() {
 	for(i = 0; i < 2; ++i) {
 		lobos[i] = new Lobo();
 	}
+
+	//Crear corral
+	corral = new Corral();
 
 	//Crear jugador
 	jugador = new Jugador();
@@ -182,6 +220,8 @@ function actualizar() {
 function pintar() {
 	pintor.fillStyle = "pink";
 	pintor.fillRect(0, 0, 800, 600);
+
+	corral.pintar();
 
 	ovejas.forEach(function (oveja) {
 		oveja.pintar();
